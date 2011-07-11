@@ -32,9 +32,14 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>android-active-record_res</name>
+			<type>2</type>
+			<locationURI>_android_android_active_record_e46abe1a/res</locationURI>
+		</link>
+		<link>
 			<name>android-active-record_src</name>
 			<type>2</type>
-			<locationURI>_android_android_active_record/src</locationURI>
+			<locationURI>_android_android_active_record_e46abe1a/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
