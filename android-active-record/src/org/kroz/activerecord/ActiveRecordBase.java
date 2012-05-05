@@ -129,7 +129,9 @@ public class ActiveRecordBase {
 	public void copyFrom(Object src) {
 		for (Field dstField : this.getColumnFieldsWithoutID()) {
 			try {
+				dstField.setAccessible(true);
 				Field srcField = src.getClass().getField(dstField.getName());
+				srcField.setAccessible(true);
 				dstField.set(this, srcField.get(src));
 
 			} catch (SecurityException e) {
@@ -355,6 +357,7 @@ public class ActiveRecordBase {
 		HashMap<Field, Long> entities = new HashMap<Field, Long>();
 		for (Field field : getColumnFields()) {
 			try {
+				field.setAccessible(true);
 				String typeString = field.getType().getName();
 				String colName = CamelNotationHelper.toSQLName(field.getName());
 				if (typeString.equals("long")) {
@@ -394,7 +397,7 @@ public class ActiveRecordBase {
 						field.set(this, null);
 				} else
 					throw new ActiveRecordException(
-							"Class cannot be read from Sqlite3 database.");
+							String.format("Class cannot be read from Sqlite3 database (%s).", typeString));
 			} catch (IllegalArgumentException e) {
 				throw new ActiveRecordException(e.getLocalizedMessage());
 			} catch (IllegalAccessException e) {
@@ -435,7 +438,7 @@ public class ActiveRecordBase {
 	 * @throws InstantiationException
 	 */
 	public <T extends ActiveRecordBase> int delete(Class<T> type,
-			String whereClause, String[] whereArgs)
+			String whereClause, String... whereArgs)
 			throws ActiveRecordException {
 		if (m_Database == null)
 			throw new ActiveRecordException("Set database first");
@@ -478,7 +481,7 @@ public class ActiveRecordBase {
 	 * <p>
 	 * For example selecting all JOHNs born in 2001 from USERS table may look like:
 	 * <pre>
-	 * users.find(Users.class, "NAME='?' and YEAR=?", new String[] {"John", "2001"});
+	 * users.find(Users.class, "NAME=? and YEAR=?", "John", "2001");
 	 * </pre>
 	 * 
 	 * @param <T>
@@ -495,7 +498,7 @@ public class ActiveRecordBase {
 	 * @throws InstantiationException
 	 */
 	public <T extends ActiveRecordBase> List<T> find(Class<T> type,
-			String whereClause, String[] whereArgs)
+			String whereClause, String... whereArgs)
 			throws ActiveRecordException {
 		if (m_Database == null)
 			throw new ActiveRecordException("Set database first");

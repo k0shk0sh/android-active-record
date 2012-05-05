@@ -189,7 +189,7 @@ public class Database {
 	 * @return The number of rows affected.
 	 */
 	public int update(String table, ContentValues values, String whereClause,
-			String[] whereArgs) {
+			String... whereArgs) {
 		return _database.update(table, values, whereClause, whereArgs);
 	}
 
@@ -204,7 +204,7 @@ public class Database {
 	 *            The arguments to replace "?" with.
 	 * @return The number of rows affected.
 	 */
-	public int delete(String table, String whereClause, String[] whereArgs) {
+	public int delete(String table, String whereClause, String... whereArgs) {
 		return _database.delete(table, whereClause, whereArgs);
 	}
 
@@ -228,7 +228,7 @@ public class Database {
 	 *            The values to replace "?" with.
 	 * @return A cursor over the data returned.
 	 */
-	public Cursor rawQuery(String sql, String[] params) {
+	public Cursor rawQuery(String sql, String... params) {
 		return _database.rawQuery(sql, params);
 	}
 
@@ -247,7 +247,7 @@ public class Database {
 	 * @throws ActiveRecordException is database is null or closed 
 	 */
 	public Cursor query(String table, String[] selectColumns, String where,
-			String[] whereArgs) throws ActiveRecordException {
+			String... whereArgs) throws ActiveRecordException {
 		return query(false, table, selectColumns, where, whereArgs, null, null,
 				null, null);
 	}
@@ -379,7 +379,7 @@ public class Database {
 		if (c.getSuperclass() == ActiveRecordBase.class)
 			return "int";
 		throw new IllegalArgumentException(
-				"Class cannot be stored in Sqlite3 database.");
+				String.format("Class cannot be stored in Sqlite3 database. (%s)", name));
 	}
 
 //	/**
