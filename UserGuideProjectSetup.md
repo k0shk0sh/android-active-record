@@ -1,0 +1,2 @@
+## Adding android-active-record to your project ##
+First step is to obtain sources of android-active-record and add them into your project tree. At this moment the only way to do this is to get sources directly from SVN (see SVN tab on this site) Once you copied sources, you need to add activation code to the startup code of you application

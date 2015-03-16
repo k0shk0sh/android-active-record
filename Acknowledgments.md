@@ -1,0 +1,1 @@
+This work was influenced and is heavily based on the concepts and code borrowed from JeremyOT's project androidactiverecord hosted on google code. I had some specific requirements about ORM framework which forced me start my own active record project, however  I'd like to thank Jeremy for his excellent code, which helped me a lot and saved huge amount of coding time.
